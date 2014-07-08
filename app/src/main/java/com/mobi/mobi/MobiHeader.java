@@ -5,11 +5,11 @@ import com.mobi.ArraySlice;
 import java.io.DataInput;
 import java.io.RandomAccessFile;
 
-class MobiHeader{
+class MobiHeader {
 
     private short compression;
     private short unused;
-    private int   textLength;
+    private int textLength;
     private short recordCount;
     private short recordSize;
     private short encryptionType;
@@ -64,10 +64,10 @@ class MobiHeader{
     private byte[] garbage2 = new byte[24];
 
 
+    private MobiHeader() {
+    }
 
-
-    private MobiHeader(){}
-    public static MobiHeader parse(ArraySlice as) throws Exception{
+    public static MobiHeader parse(ArraySlice as) throws Exception {
         MobiHeader mh = new MobiHeader();
         mh.compression = as.readShort();
         mh.unused = as.readShort();
@@ -75,10 +75,10 @@ class MobiHeader{
         mh.recordCount = as.readShort();
         mh.recordSize = as.readShort();
         mh.encryptionType = as.readShort();
-        mh.garbage         = as.readShort();
+        mh.garbage = as.readShort();
         as.readFully(mh.magic);
 
-        mh.headerLength   = as.readInt();
+        mh.headerLength = as.readInt();
         mh.mobiType = as.readInt();
         mh.textEnc = as.readInt();
         mh.uniqueID = as.readInt();
@@ -132,7 +132,7 @@ class MobiHeader{
         return fullNameOffset;
     }
 
-    public boolean hasEXTHHeader(){
+    public boolean hasEXTHHeader() {
         return (EXTHflags & 0x40) > 0;
     }
 

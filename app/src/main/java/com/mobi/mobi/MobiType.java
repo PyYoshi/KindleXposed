@@ -16,7 +16,11 @@ public enum MobiType {
     TEXT(517, "TEXT"),
     HTML(518, "HTML");
 
-    MobiType(int n, String desc) { value = n; name = desc; }
+    MobiType(int n, String desc) {
+        value = n;
+        name = desc;
+    }
+
     public final int value;
     public final String name;
 }

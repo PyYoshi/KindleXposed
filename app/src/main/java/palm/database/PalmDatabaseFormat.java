@@ -30,7 +30,8 @@ public class PalmDatabaseFormat {
 
     private List<PalmRecordInfoEntry> recordInfoEntryList;
 
-    protected PalmDatabaseFormat(){}
+    protected PalmDatabaseFormat() {
+    }
 
 /*
     Adobe Reader	.pdfADBE
@@ -69,18 +70,18 @@ public class PalmDatabaseFormat {
         pdf.version = as.readShort();
         pdf.created = as.readInt();
         pdf.modified = as.readInt();
-        pdf.backup   = as.readInt();
-        pdf.modnum   = as.readInt();
+        pdf.backup = as.readInt();
+        pdf.modnum = as.readInt();
         pdf.appInfoId = as.readInt();
         pdf.sortInfoID = as.readInt();
-        pdf.type       = as.readInt();
-        pdf.creator    = as.readInt();
+        pdf.type = as.readInt();
+        pdf.creator = as.readInt();
         pdf.uniqueIDseed = as.readInt();
         pdf.nextRecordListID = as.readInt();
         pdf.numOfRecords = as.readShort();
 
         List<PalmRecordInfoEntry> recs = new LinkedList<PalmRecordInfoEntry>();
-        for(int i = 0; i < pdf.numOfRecords; i++){
+        for (int i = 0; i < pdf.numOfRecords; i++) {
             recs.add(PalmRecordInfoEntry.parse(as));
         }
 

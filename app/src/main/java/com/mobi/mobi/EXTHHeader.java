@@ -9,14 +9,15 @@ public class EXTHHeader {
 
     private int recordCount;
 
-    private EXTHHeader(){ }
+    private EXTHHeader() {
+    }
 
     public static EXTHHeader parse(ArraySlice as) throws Exception {
-       EXTHHeader h = new EXTHHeader();
+        EXTHHeader h = new EXTHHeader();
 
         as.readFully(h.identifer);
 
-        if(! (h.identifer[0] == 'E' && h.identifer[1] == 'X' && h.identifer[2] == 'T' && h.identifer[3] == 'H')){
+        if (!(h.identifer[0] == 'E' && h.identifer[1] == 'X' && h.identifer[2] == 'T' && h.identifer[3] == 'H')) {
             throw new Exception("Magic for EXTH header is incorrect");
         }
 

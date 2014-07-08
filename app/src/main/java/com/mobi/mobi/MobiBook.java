@@ -19,40 +19,41 @@ public class MobiBook extends PalmDatabaseFormat {
   http://wiki.mobileread.com/wiki/MOBI
 */
 
-    public static MobiBook parse(String filename) throws Exception{
+    public static MobiBook parse(String filename) throws Exception {
         return parse(new ArraySlice(filename, "r"));
     }
+
     public static MobiBook parse(File f) throws Exception {
         return parse(new ArraySlice(f, "r"));
     }
 
-     public static MobiBook parse(ArraySlice as) throws Exception{
-         MobiBook mb = new MobiBook();
-         PalmDatabaseFormat.parse(as,mb);
-         PalmRecordInfoEntry record0 = mb.getRecordInfoEntryList().get(0);
+    public static MobiBook parse(ArraySlice as) throws Exception {
+        MobiBook mb = new MobiBook();
+        PalmDatabaseFormat.parse(as, mb);
+        PalmRecordInfoEntry record0 = mb.getRecordInfoEntryList().get(0);
 
-         as.seek(record0.getDataOffset());
+        as.seek(record0.getDataOffset());
 
-         mb.mHeader = MobiHeader.parse(as);
+        mb.mHeader = MobiHeader.parse(as);
 
          /*
          ➜  xxd B0026OR2HM_EBOK.prc | grep EXTH
             0001580: 0000 0284 0000 024c 4558 5448 0000 0514  .......LEXTH....
 
           */
-         if(mb.mHeader.hasEXTHHeader()){
-             as.seek(1592);
-             mb.exthBlock = EXTHBlock.parse(as);
-         }
+        if (mb.mHeader.hasEXTHHeader()) {
+            as.seek(1592);
+            mb.exthBlock = EXTHBlock.parse(as);
+        }
 
-         return mb;
-     }
+        return mb;
+    }
 
     public static String bytesToHex(byte[] bytes) {
-        final char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+        final char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         char[] hexChars = new char[bytes.length * 2];
         int v;
-        for ( int j = 0; j < bytes.length; j++ ) {
+        for (int j = 0; j < bytes.length; j++) {
             v = bytes[j] & 0xFF;
             hexChars[j * 2] = hexArray[v >>> 4];
             hexChars[j * 2 + 1] = hexArray[v & 0x0F];
@@ -60,12 +61,12 @@ public class MobiBook extends PalmDatabaseFormat {
         return new String(hexChars);
     }
 
-    public String getName(){
-      EXTHRecord rec = exthBlock.findRecordOfType(EXTHRecordType.UPDATED_TITLE);
-      if(rec == null)
-         return "----";
-      String name = rec.getUTF8String();
-      return name == null ? "" : name;
+    public String getName() {
+        EXTHRecord rec = exthBlock.findRecordOfType(EXTHRecordType.UPDATED_TITLE);
+        if (rec == null)
+            return "----";
+        String name = rec.getUTF8String();
+        return name == null ? "" : name;
 
     }
 

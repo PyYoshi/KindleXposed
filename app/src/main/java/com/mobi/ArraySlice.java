@@ -6,12 +6,12 @@ import java.nio.ByteBuffer;
 import java.nio.LongBuffer;
 
 public class ArraySlice extends RandomAccessFile {
-    public ArraySlice(String name, String mode) throws Exception{
-        super(name,mode);
+    public ArraySlice(String name, String mode) throws Exception {
+        super(name, mode);
     }
 
-    public ArraySlice(File f, String mode) throws Exception{
-        super(f,mode);
+    public ArraySlice(File f, String mode) throws Exception {
+        super(f, mode);
     }
 
     public String readString(long offset, long size) throws Exception {
@@ -20,7 +20,7 @@ public class ArraySlice extends RandomAccessFile {
     }
 
     public String readString(long size) throws Exception {
-        byte[] stringBuf = new byte[(int)size];
+        byte[] stringBuf = new byte[(int) size];
         readFully(stringBuf);
         return new String(stringBuf);
     }

@@ -10,7 +10,7 @@ public class EXTHRecord {
 
     private EXTHRecordType recordType;
 
-    private EXTHRecord(){
+    private EXTHRecord() {
     }
 
     public static EXTHRecord parse(ArraySlice as) throws Exception {
@@ -24,15 +24,15 @@ public class EXTHRecord {
         return rec;
     }
 
-    public EXTHRecordType getRecordType(){
+    public EXTHRecordType getRecordType() {
         return recordType;
     }
 
     public String getUTF8String() {
-      try{
-          return new String(mRecordData, "UTF-8");
-      }catch(Exception e){
-          return null;
-      }
+        try {
+            return new String(mRecordData, "UTF-8");
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

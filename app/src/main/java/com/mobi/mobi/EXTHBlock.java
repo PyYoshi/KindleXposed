@@ -9,12 +9,13 @@ public class EXTHBlock {
     private EXTHHeader mHeader;
     private List<EXTHRecord> records = new ArrayList<EXTHRecord>();
 
-    private EXTHBlock(){}
+    private EXTHBlock() {
+    }
 
     public static EXTHBlock parse(ArraySlice as) throws Exception {
         EXTHBlock blk = new EXTHBlock();
         blk.mHeader = EXTHHeader.parse(as);
-        for(int i = 0; i < blk.mHeader.getRecordCount(); i++)
+        for (int i = 0; i < blk.mHeader.getRecordCount(); i++)
             EXTHRecord.parse(as);
 
         return blk;
@@ -24,9 +25,9 @@ public class EXTHBlock {
         return records;
     }
 
-    public EXTHRecord findRecordOfType(EXTHRecordType type){
-        for(EXTHRecord rec: records)
-            if(rec.getRecordType() == type)
+    public EXTHRecord findRecordOfType(EXTHRecordType type) {
+        for (EXTHRecord rec : records)
+            if (rec.getRecordType() == type)
                 return rec;
         return null; //Nothing found
     }
