@@ -8,6 +8,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
+import de.robv.android.xposed.XposedBridge;
 
 import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.findClass;
@@ -16,8 +17,18 @@ public class AmazonHacks implements IXposedHookLoadPackage {
     private String TAG = "AmazonSecurityPids";
 
     private static final String PACKAGE_NAME = AmazonHacks.class.getPackage().getName();
-    XSharedPreferences savePrefs = new XSharedPreferences(PACKAGE_NAME);
+//    XSharedPreferences savePrefs = new XSharedPreferences(PACKAGE_NAME);
 
+    public static String join(String[] arry, String with) {
+        StringBuilder buf = new StringBuilder();
+        for (String s : arry) {
+            if (buf.length() > 0) {
+                buf.append(with);
+            }
+            buf.append(s);
+        }
+        return buf.toString();
+    }
 
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
         if (!lpparam.packageName.equals("com.amazon.kindle"))
@@ -27,8 +38,9 @@ public class AmazonHacks implements IXposedHookLoadPackage {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 String[] secPids = (String[]) param.getResult();
-                Set<String> secPidsSet = new HashSet<String>(Arrays.asList(secPids));
-                savePrefs.edit().putStringSet("KindleSecurityPids", secPidsSet);
+                XposedBridge.log("KindleSecurityPids: " + AmazonHacks.join(secPids, ","));
+                // Set<String> secPidsSet = new HashSet<String>(Arrays.asList(secPids));
+                // savePrefs.edit().putStringSet("KindleSecurityPids", secPidsSet);
             }
         });
 
@@ -55,5 +67,3 @@ public class AmazonHacks implements IXposedHookLoadPackage {
         */
     }
 }
-
-
